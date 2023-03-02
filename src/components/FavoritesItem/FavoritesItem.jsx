@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 
 
 function FavoritesItem(favoriteObject) {
@@ -22,10 +21,17 @@ function FavoritesItem(favoriteObject) {
         dispatch({type: 'GET_CATEGORIES'})
     }
 
+    useEffect(() => {
+        console.log('in useEffect');
+        getCategories(); 
+    }
+    )
+
     return(
         //need the id of the photo object
         <div className="favoriteGifItem" id={favoriteObject.id}>
             <img src={favoriteObject.url} />
+                                                            {/* do i need this id??? */}
             <select onChange={(event) => setCategoryVariable({id: favoriteObject.id, category: event.target.value})}>
             {/* map over category array to render individual options  */}
                 {categoriesFromRedux.map(categoryObject)}
