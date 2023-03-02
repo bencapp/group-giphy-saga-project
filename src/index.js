@@ -44,6 +44,7 @@ const favoritesToDisplay = (state = [], action) => {
   }
 };
 
+
 const storeInstance = createStore(
   combineReducers({
     gifsToDisplay,
