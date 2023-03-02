@@ -1,27 +1,43 @@
-const express = require('express');
-const pool = require('../modules/pool');
-
+const express = require("express");
+const pool = require("../modules/pool");
+//INJECT ENV VARIABLES
+require("dotenv").config();
 const router = express.Router();
 
 // return all favorite images
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   res.sendStatus(200);
 });
 
 // add a new favorite
-router.post('/', (req, res) => {
+router.post("/", (req, res) => {
   res.sendStatus(200);
 });
 
 // update given favorite with a category id
-router.put('/:favId', (req, res) => {
+router.put("/:favId", (req, res) => {
   // req.body should contain a category_id to add to this favorite image
   res.sendStatus(200);
 });
 
 // delete a favorite
-router.delete('/', (req, res) => {
+router.delete("/", (req, res) => {
   res.sendStatus(200);
+});
+
+//GET GIPHS FROM API
+router.get("/", (req, res) => {
+  axios
+    .get(
+      `http://api.giphy.com/v1/gifs/gifs?api_key=${process.env.GIPHY_API_KEY}q=${tbd}&limit=20`
+    )
+    .then((response) => {
+      console.log(response.data);
+      res.send(response.data);
+    })
+    .catch((err) => {
+      console.log(`error in giphy api request`, err);
+    });
 });
 
 module.exports = router;

@@ -1,5 +1,12 @@
+import SearchForm from "../SearchForm/SearchForm";
+
 function SearchView() {
-  return <h1>Search view</h1>;
+  return (
+    <div>
+      <h1>Search View</h1>
+      <SearchForm />
+    </div>
+  );
 }
 
 export default SearchView;
