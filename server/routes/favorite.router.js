@@ -20,8 +20,8 @@ router.post("/", (req, res) => {
     })
     .catch((error) => {
       console.log("Could not execute SQL query", queryText, " : ", error);
+      res.sendStatus(500);
     });
-  res.sendStatus(200);
 });
 
 // update given favorite with a category id

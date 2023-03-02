@@ -1,10 +1,18 @@
-function SearchItem() {
+import { useDispatch } from "react-redux";
+
+function SearchItem({ gif }) {
+  const dispatch = useDispatch();
+
+  const handleAddToFavorites = () => {
+    dispatch({ type: "ADD_FAVORITE", payload: gif.url });
+  };
+
   return (
     <>
       <div className="gif-container">
         <img></img>
       </div>
-      <button>Add to Favorites</button>
+      <button onClick={handleAddToFavorites}>Add to Favorites</button>
     </>
   );
 }
