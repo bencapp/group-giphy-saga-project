@@ -10,19 +10,20 @@ import { takeEvery, put } from "redux-saga/effects";
 
 // Create the rootSaga generator function *WATCHER*
 function* rootSaga() {
-  takeEvery("FETCH_GIFS", fetchGifs);
+  yield takeEvery("FETCH_GIFS", fetchGifs);
 }
 
 //WORKER GET FROM API
-function* fetchGifs() {
+function* fetchGifs(action) {
   try {
-    let response = yield axios.get("/api/favorite");
+    let response = yield axios.get(`/api/favorite/${action.payload}`);
+    console.log(response);
     yield put({
       type: "SET_GIFS",
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (err) {
-    console.log(`error in fetch plants`, err);
+    console.log(`error in fetch gifs`, err);
   }
 }
 
@@ -32,11 +33,8 @@ const sagaMiddleware = createSagaMiddleware();
 // * Reducer for displaying gifs
 const gifsToDisplay = (state = [], action) => {
   switch (action.type) {
-    // TODO: add switch state
-    // case "ADD_GIF":
-    //   return [...state, action.payload];
-    // case "SET_GIFS":
-    //   return action.payload;
+    case "SET_GIFS":
+      return action.payload;
     default:
       return state;
   }
