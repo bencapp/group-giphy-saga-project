@@ -1,10 +1,18 @@
-import React from 'react';
+import React from "react";
+import { HashRouter as Router, Route, Link } from "react-router-dom";
+import FavoritesView from "../FavoritesView/FavoritesView";
+import SearchView from "../SearchView/SearchView";
 
 function App(props) {
   return (
-    <div>
-      <h1>Giphy Search!</h1>
-    </div>
+    <Router>
+      <Route>
+        <SearchView exact path="/" />
+      </Route>
+      <Route exact path="/favorites">
+        <FavoritesView />
+      </Route>
+    </Router>
   );
 }
 
