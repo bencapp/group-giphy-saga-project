@@ -6,6 +6,7 @@ require("dotenv").config();
 const router = express.Router();
 
 // return all favorite images
+// !
 router.get("/", (req, res) => {
   res.sendStatus(200);
 });
@@ -36,6 +37,20 @@ router.put("/:favId", (req, res) => {
 // delete a favorite
 router.delete("/", (req, res) => {
   res.sendStatus(200);
+});
+
+// * route request getting favorites from favorites db table 
+router.get('/', (req, res) => {
+  const queryText = `SELECT * FROM favorites ORDER BY url ASC`;
+  pool
+    .query(queryText)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log(`Error on query ${error}`);
+      res.sendStatus(500);
+    });
 });
 
 //GET GIPHS FROM API

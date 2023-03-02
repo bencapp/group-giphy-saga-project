@@ -10,7 +10,8 @@ import { takeEvery, put } from "redux-saga/effects";
 
 // Create the rootSaga generator function *WATCHER*
 function* rootSaga() {
-  takeEvery("FETCH_GIFS", fetchGifs);
+  yield takeEvery("FETCH_GIFS", fetchGifs);
+  yield takeEvery("FETCH_FAVORITES", fetchFavorites);
 }
 
 //WORKER GET FROM API
@@ -23,6 +24,19 @@ function* fetchGifs() {
     });
   } catch (err) {
     console.log(`error in fetch plants`, err);
+  }
+}
+// * SAGA for GET request favorites
+// !
+function* fetchFavorites() {
+  try {
+    let response = yield axios.get();
+    yield put({
+      type: "SET_FAVORITES",
+      payload: response.data,
+    });
+  } catch (err) {
+    console.log(`error in fetch favorites`, err);
   }
 }
 
