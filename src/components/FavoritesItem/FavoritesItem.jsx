@@ -2,8 +2,11 @@ import React from "react";
 
 
 function FavoritesItem() {
-    return{  
-    }
+    return(
+        <div>
+            {/* space for photo url */}
+        </div>
+    )  
 
 }
 
