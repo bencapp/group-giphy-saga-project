@@ -7,6 +7,8 @@ function FavoritesItem() {
     const dispatch = useDispatch(); 
     const [categoryVariable, setCategoryVariable] = useState(''); 
 
+    const 
+
     const handleClick = () => {
           //this is where the put dispatch will be called 
         // dispatch({
