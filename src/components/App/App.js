@@ -6,8 +6,8 @@ import SearchView from "../SearchView/SearchView";
 function App(props) {
   return (
     <Router>
-      <Route>
-        <SearchView exact path="/" />
+      <Route exact path="/">
+        <SearchView />
       </Route>
       <Route exact path="/favorites">
         <FavoritesView />
