@@ -11,6 +11,7 @@ import { takeEvery, put } from "redux-saga/effects";
 // Create the rootSaga generator function *WATCHER*
 function* rootSaga() {
   takeEvery("FETCH_GIFS", fetchGifs);
+  takeEvery("GET_CATEGORIES", getCategories)
 }
 
 //WORKER GET FROM API
@@ -23,6 +24,15 @@ function* fetchGifs() {
     });
   } catch (err) {
     console.log(`error in fetch plants`, err);
+  }
+}
+
+function* getCategories() {
+  try{
+    let response = yield axios.get('/api/category'); 
+    yield put({type: 'SET_CATEGORIES', payload: response.data});
+  } catch (error) {
+    console.log('error in get categories');
   }
 }
 
@@ -54,11 +64,21 @@ const favoritesToDisplay = (state = [], action) => {
   }
 };
 
+const categoriesToDisplay = (state = [], action) => {
+  switch(action.type) {
+    case "SET_CATEGORIES":
+        return action.payload
+    default: 
+        return state
+  }
+}
+
 
 const storeInstance = createStore(
   combineReducers({
     gifsToDisplay,
     favoritesToDisplay,
+    categoriesToDisplay
   }),
   applyMiddleware(sagaMiddleware, logger)
 );

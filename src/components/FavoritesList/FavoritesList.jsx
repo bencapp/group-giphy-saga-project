@@ -3,20 +3,20 @@ import { useSelector} from 'react-redux';
 import FavoritesItem from "../FavoritesItem/FavoritesItem";
 
 function FavoritesList() {
-                                                //need to change this to the reducer name 
-    // const listOfPhotos = useSelector(store => store.reducer)
+
+    const listOfFavorites = useSelector(store => store.favoritesToDisplay)
 
     
 
 
-    return{  
-        // listOfPhotos.map((gifObject, id)) => {
+    return(  
+        // {listOfFavorites.map((favoriteObject) => {
         //     return(
-        //     <FavoritesItem key={id} gifObject=gifObject>
+        //     <FavoritesItem favoriteObject={favoriteObject}/>
         //     )
-        // }
+        // })}
 
-    }
+    )
 
 }
 
