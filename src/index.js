@@ -8,7 +8,6 @@ import logger from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 import { takeEvery, put } from "redux-saga/effects";
 
-
 // Create the rootSaga generator function *WATCHER*
 function* rootSaga() {
   takeEvery("FETCH_GIFS", fetchGifs);
@@ -30,10 +29,6 @@ function* fetchGifs() {
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-// Pass rootSaga into our sagaMiddleware
-sagaMiddleware.run(rootSaga);
-
-
 // * Reducer for displaying gifs
 const gifsToDisplay = (state = [], action) => {
   switch (action.type) {
@@ -46,7 +41,7 @@ const gifsToDisplay = (state = [], action) => {
       return state;
   }
 };
-// * Reducer for displaying favorited gifs 
+// * Reducer for displaying favorited gifs
 const favoritesToDisplay = (state = [], action) => {
   switch (action.type) {
     // TODO: add switch state
@@ -66,6 +61,9 @@ const storeInstance = createStore(
   }),
   applyMiddleware(sagaMiddleware, logger)
 );
+
+// Pass rootSaga into our sagaMiddleware
+sagaMiddleware.run(rootSaga);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
