@@ -4,6 +4,8 @@ import FavoritesView from "../FavoritesView/FavoritesView";
 import SearchView from "../SearchView/SearchView";
 import NavBar from "../NavBar/NavBar";
 
+(" 🎁");
+
 function App(props) {
   return (
     <Router>
