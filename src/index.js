@@ -30,6 +30,7 @@ function* fetchGifs(action) {
     console.log(`error in fetch gifs`, err);
   }
 }
+
 // * SAGA for GET request favorites
 // !
 function* fetchFavorites() {
@@ -88,6 +89,7 @@ const sagaMiddleware = createSagaMiddleware();
 const gifsToDisplay = (state = [], action) => {
   switch (action.type) {
     case "SET_GIFS":
+      console.log(action.payload);
       return action.payload;
     default:
       return state;
