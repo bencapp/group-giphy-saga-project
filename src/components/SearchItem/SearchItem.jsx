@@ -1,4 +1,6 @@
 import { useDispatch } from "react-redux";
+import { Box } from "@mui/system";
+import { Button } from "@mui/material";
 
 function SearchItem({ gif }) {
   const dispatch = useDispatch();
@@ -8,12 +10,12 @@ function SearchItem({ gif }) {
   };
 
   return (
-    <>
+    <Box>
       <div className="gif-container">
         <img></img>
       </div>
-      <button onClick={handleAddToFavorites}>Add to Favorites</button>
-    </>
+      <Button onClick={handleAddToFavorites}>Add to Favorites</Button>
+    </Box>
   );
 }
 
