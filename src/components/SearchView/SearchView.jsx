@@ -1,11 +1,12 @@
+import SearchForm from "../SearchForm/SearchForm";
 import SearchList from "../SearchList/SearchList";
-
 function SearchView() {
   return (
-    <>
-      <h1>Search view</h1>
+    <div>
+      <h1>Search View</h1>
+      <SearchForm />
       <SearchList />
-    </>
+    </div>
   );
 }
 

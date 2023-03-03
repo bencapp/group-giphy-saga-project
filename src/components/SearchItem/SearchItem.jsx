@@ -12,7 +12,7 @@ function SearchItem({ gif }) {
   return (
     <Box>
       <div className="gif-container">
-        <img></img>
+        <img src={gif.images.original.url}></img>
       </div>
       <Button onClick={handleAddToFavorites}>Add to Favorites</Button>
     </Box>

@@ -2,7 +2,8 @@ import SearchItem from "../SearchItem/SearchItem";
 import { useSelector } from "react-redux";
 
 function SearchList() {
-  const gifList = []; //TODO: useSelector((store) => store.list);
+  const gifList = useSelector((store) => store.gifsToDisplay);
+  console.log(gifList);
   return (
     <div id="search-list">
       {gifList.map((element) => (
