@@ -11,6 +11,8 @@ import { takeEvery, put } from "redux-saga/effects";
 // Create the rootSaga generator function *WATCHER*
 function* rootSaga() {
   yield takeEvery("FETCH_GIFS", fetchGifs);
+  yield takeEvery("FETCH_FAVORITES", fetchFavorites);
+  yield takeEvery("ADD_FAVORITE", postFavorite);
   yield takeEvery("GET_CATEGORIES", getCategories);
   yield takeEvery("CHANGE_CATEGORY", changeCategory);
 }
@@ -29,19 +31,52 @@ function* fetchGifs(action) {
   }
 }
 
+// * SAGA for GET request favorites
+// !
+function* fetchFavorites() {
+  try {
+    let response = yield axios.get("/api/favorite/");
+    yield put({
+      type: "SET_FAVORITES",
+      payload: response.data,
+    });
+    console.log("response.data in fetchFavorites", response.data);
+  } catch (err) {
+    console.log(`error in fetch favorites`, err);
+  }
+}
+
+// WORKER POST
+function* postFavorite(action) {
+  try {
+    yield axios.post(`api/favorite`, { payload: action.payload });
+    yield put({
+      type: "FETCH_FAVORITES",
+    });
+  } catch (error) {
+    console.log("Error in post favorite:", error);
+  }
+}
+
 function* getCategories() {
   try {
     let response = yield axios.get("/api/category");
+    console.log("categories get response", response);
     yield put({ type: "SET_CATEGORIES", payload: response.data });
   } catch (error) {
     console.log("error in get categories");
   }
 }
 
+// ------ PUT -------- //
 function* changeCategory(action) {
   try {
-    yield axios.put(`/api/favorite/${action.payload}`);
-    // yield put({type: ***this where favorites get goes***})
+    yield axios.put(`/api/favorite/${action.payload.id}`, {
+      payload: action.payload.category,
+    });
+    yield put({
+      type: "FETCH_FAVORITES",
+    });
   } catch (error) {
     console.log("error in Put");
   }
@@ -60,12 +95,14 @@ const gifsToDisplay = (state = [], action) => {
       return state;
   }
 };
+
 // * Reducer for displaying favorited gifs
 const favoritesToDisplay = (state = [], action) => {
   switch (action.type) {
-    // TODO: add switch state
-    case "ADD_FAVORITES":
-      return [...state, action.payload];
+    // case "ADD_FAVORITE":
+    //   return [...state, action.payload];
+    case "SET_FAVORITES":
+      return action.payload;
     default:
       return state;
   }
@@ -74,6 +111,7 @@ const favoritesToDisplay = (state = [], action) => {
 const categoriesToDisplay = (state = [], action) => {
   switch (action.type) {
     case "SET_CATEGORIES":
+      console.log("received set categories:", action.payload);
       return action.payload;
     default:
       return state;

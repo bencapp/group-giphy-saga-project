@@ -1,7 +1,6 @@
 import SearchForm from "../SearchForm/SearchForm";
 import SearchList from "../SearchList/SearchList";
 import { Box } from "@mui/system";
-import Masonry from "@mui/lab/Masonry";
 
 function SearchView() {
   return (

@@ -7,7 +7,7 @@ function SearchItem({ gif }) {
   const dispatch = useDispatch();
 
   const handleAddToFavorites = () => {
-    dispatch({ type: "ADD_FAVORITE", payload: gif.url });
+    dispatch({ type: "ADD_FAVORITE", payload: gif.images.original.url });
 
     setIsFavorited(!isFavorited);
   };
