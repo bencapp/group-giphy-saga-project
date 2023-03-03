@@ -15,22 +15,23 @@ function* rootSaga() {
 }
 
 //WORKER GET FROM API
-function* fetchGifs() {
+function* fetchGifs(action) {
   try {
-    let response = yield axios.get("/api/favorite");
+    let response = yield axios.get(`/api/favorite/${action.payload}`);
+    console.log(response);
     yield put({
       type: "SET_GIFS",
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (err) {
-    console.log(`error in fetch plants`, err);
+    console.log(`error in fetch gifs`, err);
   }
 }
 // * SAGA for GET request favorites
 // !
 function* fetchFavorites() {
   try {
-    let response = yield axios.get();
+    let response = yield axios.get('/api/favorite/');
     yield put({
       type: "SET_FAVORITES",
       payload: response.data,
@@ -46,11 +47,8 @@ const sagaMiddleware = createSagaMiddleware();
 // * Reducer for displaying gifs
 const gifsToDisplay = (state = [], action) => {
   switch (action.type) {
-    // TODO: add switch state
-    // case "ADD_GIF":
-    //   return [...state, action.payload];
-    // case "SET_GIFS":
-    //   return action.payload;
+    case "SET_GIFS":
+      return action.payload;
     default:
       return state;
   }
@@ -61,8 +59,8 @@ const favoritesToDisplay = (state = [], action) => {
     // TODO: add switch state
     // case "ADD_FAVORITES":
     //   return [...state, action.payload];
-    // case "SET_FAVORITES":
-    //   return action.payload;
+    case "SET_FAVORITES":
+      return action.payload;
     default:
       return state;
   }

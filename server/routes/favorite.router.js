@@ -1,15 +1,17 @@
 const express = require("express");
 const pool = require("../modules/pool");
+const axios = require("axios");
+
 //INJECT ENV VARIABLES
 require("dotenv").config();
 
 const router = express.Router();
 
-// return all favorite images
-// !
-router.get("/", (req, res) => {
-  res.sendStatus(200);
-});
+// // return all favorite images
+// // !
+// router.get("/", (req, res) => {
+//   res.sendStatus(200);
+// });
 
 // add a new favorite
 router.post("/", (req, res) => {
@@ -54,10 +56,10 @@ router.get('/', (req, res) => {
 });
 
 //GET GIPHS FROM API
-router.get("/", (req, res) => {
+router.get("/:query", (req, res) => {
   axios
     .get(
-      `http://api.giphy.com/v1/gifs/gifs?api_key=${process.env.GIPHY_API_KEY}q=${tbd}&limit=20`
+      `http://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${req.params.query}&limit=20`
     )
     .then((response) => {
       console.log(response.data);
