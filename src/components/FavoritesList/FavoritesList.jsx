@@ -11,6 +11,8 @@ function FavoritesList() {
   }, []);
 
   const listOfFavorites = useSelector((store) => store.favoritesToDisplay);
+
+  console.log(listOfFavorites);
   return (
     <div>
       {listOfFavorites.map((favoriteObject) => (

@@ -23,7 +23,7 @@ function FavoritesItem({ favoriteObject }) {
     //need the id of the photo object
     <div className="favoriteGifItem">
       <img src={favoriteObject.url}></img>
-      <p>Current category: {favoriteObject.category_id}</p>
+      <p>Current category: {favoriteObject.name}</p>
       <select
         onChange={(event) =>
           setCategoryVariable({
