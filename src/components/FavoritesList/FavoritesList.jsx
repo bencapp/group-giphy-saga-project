@@ -1,27 +1,26 @@
 import React from "react";
-import { useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import FavoritesItem from "../FavoritesItem/FavoritesItem";
 import { useEffect } from "react";
 
 function FavoritesList() {
-    const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch({type: 'FETCH_FAVORITES'});
-    }, [])
+  useEffect(() => {
+    dispatch({ type: "FETCH_FAVORITES" });
+  }, []);
 
-
-    const listOfFavorites = useSelector(store => store.favoritesToDisplay)
-    console.log('list of Favorites', listOfFavorites);
-    return(  
-        listOfFavorites.map((favoriteObject) => {
-            console.log('favoriteObject:', favoriteObject)
-            return(
-                <FavoritesItem key={favoriteObject.id } favoriteObject={favoriteObject}/>
-            )
-        })
-    )
-
+  const listOfFavorites = useSelector((store) => store.favoritesToDisplay);
+  return (
+    <div>
+      {listOfFavorites.map((favoriteObject) => (
+        <FavoritesItem
+          favoriteObject={favoriteObject}
+          key={favoriteObject.id}
+        />
+      ))}
+    </div>
+  );
 }
 
-export default FavoritesList; 
+export default FavoritesList;

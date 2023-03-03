@@ -6,7 +6,6 @@ import InputBase from "@mui/material/InputBase";
 
 function SearchList() {
   const gifList = useSelector((store) => store.gifsToDisplay);
-  console.log(gifList);
   return (
     <Box
       id="search-list"
