@@ -14,10 +14,10 @@ router.get("/favorites", (req, res) => {
 
 // add a new favorite
 router.post("/", (req, res) => {
-  res.sendStatus(200);
   const queryText = `INSERT INTO "favorites" ("url")
   VALUES ($1)`;
-  const queryParams = req.body.url;
+  console.log("sending post: req.body is:", req.body);
+  const queryParams = [req.body.payload];
   pool
     .query(queryText, queryParams)
     .then(() => {

@@ -11,6 +11,7 @@ import { takeEvery, put } from "redux-saga/effects";
 // Create the rootSaga generator function *WATCHER*
 function* rootSaga() {
   yield takeEvery("FETCH_GIFS", fetchGifs);
+  yield takeEvery("ADD_FAVORITE", postFavorite);
 }
 
 //WORKER GET FROM API
@@ -24,6 +25,18 @@ function* fetchGifs(action) {
     });
   } catch (err) {
     console.log(`error in fetch gifs`, err);
+  }
+}
+
+// WORKER POST
+function* postFavorite(action) {
+  try {
+    yield axios.post(`api/favorite`, { payload: action.payload });
+    yield put({
+      type: "FETCH_FAVORITES",
+    });
+  } catch (error) {
+    console.log("Error in post favorite:", error);
   }
 }
 
@@ -42,11 +55,10 @@ const gifsToDisplay = (state = [], action) => {
 // * Reducer for displaying favorited gifs
 const favoritesToDisplay = (state = [], action) => {
   switch (action.type) {
-    // TODO: add switch state
-    // case "ADD_FAVORITES":
-    //   return [...state, action.payload];
-    // case "SET_FAVORITES":
-    //   return action.payload;
+    case "ADD_FAVORITE":
+      return [...state, action.payload];
+    case "SET_FAVORITES":
+      return action.payload;
     default:
       return state;
   }
