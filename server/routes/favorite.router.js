@@ -15,8 +15,8 @@ const router = express.Router();
 
 // add a new favorite
 router.post("/", (req, res) => {
-  const queryText = `INSERT INTO "favorites" ("url")
-  VALUES ($1)`;
+  const queryText = `INSERT INTO "favorites" ("url", "category_id")
+  VALUES ($1, '1')`;
   console.log("sending post: req.body is:", req.body);
   const queryParams = [req.body.payload];
   pool
@@ -58,7 +58,8 @@ router.delete("/", (req, res) => {
 
 // * route request getting favorites from favorites db table
 router.get("/", (req, res) => {
-  const queryText = `SELECT * FROM favorites ORDER BY url ASC`;
+  const queryText = `SELECT * FROM "category"
+                      JOIN "favorites" ON "favorites".category_id = "category".id`;
   pool
     .query(queryText)
     .then((result) => {

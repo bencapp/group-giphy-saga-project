@@ -35,6 +35,7 @@ function* fetchGifs(action) {
 function* fetchFavorites() {
   try {
     let response = yield axios.get("/api/favorite/");
+    console.log("fetching favorites, response is", response);
     yield put({
       type: "SET_FAVORITES",
       payload: response.data,
@@ -86,7 +87,6 @@ const sagaMiddleware = createSagaMiddleware();
 const gifsToDisplay = (state = [], action) => {
   switch (action.type) {
     case "SET_GIFS":
-      console.log(action.payload);
       return action.payload;
     default:
       return state;
@@ -97,6 +97,7 @@ const gifsToDisplay = (state = [], action) => {
 const favoritesToDisplay = (state = [], action) => {
   switch (action.type) {
     case "SET_FAVORITES":
+      console.log("setting favorites, action.payload is", action.payload);
       return action.payload;
     default:
       return state;
