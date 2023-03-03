@@ -8,7 +8,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.9",
     "@mui/lab": "^5.0.0-alpha.121",
-    "@mui/material": "^5.11.10",
+    "@mui/material": "^5.11.11",
     "axios": "^0.21.1",
     "express": "^4.17.1",
     "pg": "^8.5.1",

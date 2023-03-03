@@ -32,8 +32,8 @@ function SearchItem({ gif }) {
           width: "100%",
         }}
       />
-      <IconButton>
-        <FavoriteBorderIcon id="favorite-btn" onClick={handleAddToFavorites}>
+      <IconButton onClick={handleAddToFavorites}>
+        <FavoriteBorderIcon id="favorite-btn">
           Add to Favorites
         </FavoriteBorderIcon>
       </IconButton>

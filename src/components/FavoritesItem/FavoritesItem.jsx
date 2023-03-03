@@ -6,7 +6,6 @@ function FavoritesItem({ favoriteObject }) {
   const [categoryVariable, setCategoryVariable] = useState("");
 
   const categoriesFromRedux = useSelector((store) => store.categoriesToDisplay);
-  console.log("categories from Redux:", categoriesFromRedux);
 
   const handleClick = () => {
     //   this is where the put dispatch will be called
@@ -22,7 +21,7 @@ function FavoritesItem({ favoriteObject }) {
 
   return (
     //need the id of the photo object
-    <div className="favoriteGifItem" id={favoriteObject.id}>
+    <div className="favoriteGifItem">
       <img src={favoriteObject.url}></img>
       <p>Current category: {favoriteObject.category_id}</p>
       <select
@@ -35,7 +34,9 @@ function FavoritesItem({ favoriteObject }) {
       >
         {/* map over category array to render individual options  */}
         {categoriesFromRedux.map((categoryObject) => (
-          <option value={categoryObject.id}>{categoryObject.name}</option>
+          <option key={categoryObject.id} value={categoryObject.id}>
+            {categoryObject.name}
+          </option>
         ))}
       </select>
       <button onClick={handleClick}>SUBMIT</button>

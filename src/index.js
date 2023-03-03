@@ -21,7 +21,6 @@ function* rootSaga() {
 function* fetchGifs(action) {
   try {
     let response = yield axios.get(`/api/favorite/${action.payload}`);
-    console.log(response);
     yield put({
       type: "SET_GIFS",
       payload: response.data.data,
@@ -40,7 +39,6 @@ function* fetchFavorites() {
       type: "SET_FAVORITES",
       payload: response.data,
     });
-    console.log("response.data in fetchFavorites", response.data);
   } catch (err) {
     console.log(`error in fetch favorites`, err);
   }
@@ -61,7 +59,6 @@ function* postFavorite(action) {
 function* getCategories() {
   try {
     let response = yield axios.get("/api/category");
-    console.log("categories get response", response);
     yield put({ type: "SET_CATEGORIES", payload: response.data });
   } catch (error) {
     console.log("error in get categories");
@@ -99,8 +96,6 @@ const gifsToDisplay = (state = [], action) => {
 // * Reducer for displaying favorited gifs
 const favoritesToDisplay = (state = [], action) => {
   switch (action.type) {
-    // case "ADD_FAVORITE":
-    //   return [...state, action.payload];
     case "SET_FAVORITES":
       return action.payload;
     default:
@@ -111,7 +106,6 @@ const favoritesToDisplay = (state = [], action) => {
 const categoriesToDisplay = (state = [], action) => {
   switch (action.type) {
     case "SET_CATEGORIES":
-      console.log("received set categories:", action.payload);
       return action.payload;
     default:
       return state;
