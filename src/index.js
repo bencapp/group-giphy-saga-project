@@ -13,7 +13,7 @@ function* rootSaga() {
   yield takeEvery("FETCH_GIFS", fetchGifs);
   yield takeEvery("ADD_FAVORITE", postFavorite);
   yield takeEvery("GET_CATEGORIES", getCategories);
-  yield takeEvery("CHANGE_CATEGORY", changeCategory)
+  yield takeEvery("CHANGE_CATEGORY", changeCategory);
 }
 
 //WORKER GET FROM API
@@ -39,22 +39,24 @@ function* postFavorite(action) {
     });
   } catch (error) {
     console.log("Error in post favorite:", error);
-    
+  }
+}
+
 function* getCategories() {
-  try{
-    let response = yield axios.get('/api/category'); 
-    yield put({type: 'SET_CATEGORIES', payload: response.data});
+  try {
+    let response = yield axios.get("/api/category");
+    yield put({ type: "SET_CATEGORIES", payload: response.data });
   } catch (error) {
-    console.log('error in get categories');
+    console.log("error in get categories");
   }
 }
 
 function* changeCategory(action) {
   try {
-    yield axios.put(`/api/favorite/${action.payload}`)
+    yield axios.put(`/api/favorite/${action.payload}`);
     // yield put({type: ***this where favorites get goes***})
   } catch (error) {
-      console.log('error in Put')
+    console.log("error in Put");
   }
 }
 
@@ -70,6 +72,7 @@ const gifsToDisplay = (state = [], action) => {
       return state;
   }
 };
+
 // * Reducer for displaying favorited gifs
 const favoritesToDisplay = (state = [], action) => {
   switch (action.type) {
@@ -83,19 +86,19 @@ const favoritesToDisplay = (state = [], action) => {
 };
 
 const categoriesToDisplay = (state = [], action) => {
-  switch(action.type) {
+  switch (action.type) {
     case "SET_CATEGORIES":
-        return action.payload
-    default: 
-        return state
+      return action.payload;
+    default:
+      return state;
   }
-}
+};
 
 const storeInstance = createStore(
   combineReducers({
     gifsToDisplay,
     favoritesToDisplay,
-    categoriesToDisplay
+    categoriesToDisplay,
   }),
   applyMiddleware(sagaMiddleware, logger)
 );
