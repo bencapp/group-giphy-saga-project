@@ -15,10 +15,10 @@ const router = express.Router();
 
 // add a new favorite
 router.post("/", (req, res) => {
-  res.sendStatus(200);
   const queryText = `INSERT INTO "favorites" ("url")
   VALUES ($1)`;
-  const queryParams = req.body.url;
+  console.log("sending post: req.body is:", req.body);
+  const queryParams = [req.body.payload];
   pool
     .query(queryText, queryParams)
     .then(() => {
@@ -33,7 +33,19 @@ router.post("/", (req, res) => {
 // update given favorite with a category id
 router.put("/:favId", (req, res) => {
   // req.body should contain a category_id to add to this favorite image
-  res.sendStatus(200);
+  const queryText = 
+   `UPDATE "favorites" 
+    SET "category_id" = $1
+    WHERE id = $2
+   `
+  const queryParams = [req.body.category, req.params.id]
+  pool.query(queryText, queryParams)
+  .then((response) => {
+    res.sendStatus(200);
+  })
+  .catch((err) => {
+    console.log('error in PUT on server')
+  })
 });
 
 // delete a favorite
