@@ -11,6 +11,8 @@ import { takeEvery, put } from "redux-saga/effects";
 // Create the rootSaga generator function *WATCHER*
 function* rootSaga() {
   yield takeEvery("FETCH_GIFS", fetchGifs);
+  yield takeEvery("GET_CATEGORIES", getCategories);
+  yield takeEvery("CHANGE_CATEGORY", changeCategory)
 }
 
 //WORKER GET FROM API
@@ -24,6 +26,24 @@ function* fetchGifs(action) {
     });
   } catch (err) {
     console.log(`error in fetch gifs`, err);
+  }
+}
+
+function* getCategories() {
+  try{
+    let response = yield axios.get('/api/category'); 
+    yield put({type: 'SET_CATEGORIES', payload: response.data});
+  } catch (error) {
+    console.log('error in get categories');
+  }
+}
+
+function* changeCategory(action) {
+  try {
+    yield axios.put(`/api/favorite/${action.payload}`)
+    // yield put({type: ***this where favorites get goes***})
+  } catch (error) {
+      console.log('error in Put')
   }
 }
 
@@ -43,19 +63,27 @@ const gifsToDisplay = (state = [], action) => {
 const favoritesToDisplay = (state = [], action) => {
   switch (action.type) {
     // TODO: add switch state
-    // case "ADD_FAVORITES":
-    //   return [...state, action.payload];
-    // case "SET_FAVORITES":
-    //   return action.payload;
+    case "ADD_FAVORITES":
+      return [...state, action.payload];
     default:
       return state;
   }
 };
 
+const categoriesToDisplay = (state = [], action) => {
+  switch(action.type) {
+    case "SET_CATEGORIES":
+        return action.payload
+    default: 
+        return state
+  }
+}
+
 const storeInstance = createStore(
   combineReducers({
     gifsToDisplay,
     favoritesToDisplay,
+    categoriesToDisplay
   }),
   applyMiddleware(sagaMiddleware, logger)
 );
