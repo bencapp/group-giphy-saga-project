@@ -10,11 +10,11 @@ function FavoritesList() {
 
 
     return(  
-        // {listOfFavorites.map((favoriteObject) => {
-        //     return(
-        //     <FavoritesItem favoriteObject={favoriteObject}/>
-        //     )
-        // })}
+        listOfFavorites.map((favoriteObject) => {
+            return(
+            <FavoritesItem favoriteObject={favoriteObject}/>
+            )
+        })
 
     )
 

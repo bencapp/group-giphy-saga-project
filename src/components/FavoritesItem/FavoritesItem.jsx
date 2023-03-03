@@ -24,14 +24,12 @@ function FavoritesItem(favoriteObject) {
     useEffect(() => {
         console.log('in useEffect');
         getCategories(); 
-    }
-    )
+    })
 
     return(
         //need the id of the photo object
         <div className="favoriteGifItem" id={favoriteObject.id}>
-            <img src={favoriteObject.url} />
-                                             
+            <img src={favoriteObject.url} />           
             <select onChange={(event) => setCategoryVariable({id: favoriteObject.id, category: event.target.value})}>
             {/* map over category array to render individual options  */}
                 {categoriesFromRedux.map(categoryObject)}
