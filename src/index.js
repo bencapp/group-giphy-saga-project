@@ -34,12 +34,12 @@ function* fetchGifs(action) {
 // !
 function* fetchFavorites() {
   try {
-    let response = yield axios.get('/api/favorite/');
+    let response = yield axios.get("/api/favorite/");
     yield put({
       type: "SET_FAVORITES",
       payload: response.data,
     });
-    console.log('response.data in fetchFavorites', response.data)
+    console.log("response.data in fetchFavorites", response.data);
   } catch (err) {
     console.log(`error in fetch favorites`, err);
   }
@@ -60,17 +60,22 @@ function* postFavorite(action) {
 function* getCategories() {
   try {
     let response = yield axios.get("/api/category");
-    console.log('categories get response', response);
+    console.log("categories get response", response);
     yield put({ type: "SET_CATEGORIES", payload: response.data });
   } catch (error) {
     console.log("error in get categories");
   }
 }
 
+// ------ PUT -------- //
 function* changeCategory(action) {
   try {
-    yield axios.put(`/api/favorite/${action.payload}`);
-    // yield put({type: ***this where favorites get goes***})
+    yield axios.put(`/api/favorite/${action.payload.id}`, {
+      payload: action.payload.category,
+    });
+    yield put({
+      type: "FETCH_FAVORITES",
+    });
   } catch (error) {
     console.log("error in Put");
   }
@@ -104,6 +109,7 @@ const favoritesToDisplay = (state = [], action) => {
 const categoriesToDisplay = (state = [], action) => {
   switch (action.type) {
     case "SET_CATEGORIES":
+      console.log("received set categories:", action.payload);
       return action.payload;
     default:
       return state;
