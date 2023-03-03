@@ -39,6 +39,7 @@ function* fetchFavorites() {
       type: "SET_FAVORITES",
       payload: response.data,
     });
+    console.log('response.data in fetchFavorites', response.data)
   } catch (err) {
     console.log(`error in fetch favorites`, err);
   }
@@ -59,6 +60,7 @@ function* postFavorite(action) {
 function* getCategories() {
   try {
     let response = yield axios.get("/api/category");
+    console.log('categories get response', response);
     yield put({ type: "SET_CATEGORIES", payload: response.data });
   } catch (error) {
     console.log("error in get categories");
@@ -90,8 +92,8 @@ const gifsToDisplay = (state = [], action) => {
 // * Reducer for displaying favorited gifs
 const favoritesToDisplay = (state = [], action) => {
   switch (action.type) {
-    case "ADD_FAVORITE":
-      return [...state, action.payload];
+    // case "ADD_FAVORITE":
+    //   return [...state, action.payload];
     case "SET_FAVORITES":
       return action.payload;
     default:
