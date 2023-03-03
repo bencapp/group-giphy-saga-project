@@ -30,11 +30,11 @@ function FavoritesItem(favoriteObject) {
         //need the id of the photo object
         <div className="favoriteGifItem" id={favoriteObject.id}>
             <img src={favoriteObject.url} />           
-            <select onChange={(event) => setCategoryVariable({id: favoriteObject.id, category: event.target.value})}>
-            {/* map over category array to render individual options  */}
+            {/* <select onChange={(event) => setCategoryVariable({id: favoriteObject.id, category: event.target.value})}>
+            //map over category array to render individual options 
                 {categoriesFromRedux.map(categoryObject)}
                 <option value="{categoryObject.id}">{categoryObject.name}</option>
-            </select>
+            </select> */}
             <button onClick={handleClick}></button>
         </div>
     )  

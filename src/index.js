@@ -11,6 +11,7 @@ import { takeEvery, put } from "redux-saga/effects";
 // Create the rootSaga generator function *WATCHER*
 function* rootSaga() {
   yield takeEvery("FETCH_GIFS", fetchGifs);
+  yield takeEvery("FETCH_FAVORITES", fetchFavorites);
   yield takeEvery("ADD_FAVORITE", postFavorite);
   yield takeEvery("GET_CATEGORIES", getCategories);
   yield takeEvery("CHANGE_CATEGORY", changeCategory);
@@ -27,6 +28,19 @@ function* fetchGifs(action) {
     });
   } catch (err) {
     console.log(`error in fetch gifs`, err);
+  }
+}
+// * SAGA for GET request favorites
+// !
+function* fetchFavorites() {
+  try {
+    let response = yield axios.get('/api/favorite/');
+    yield put({
+      type: "SET_FAVORITES",
+      payload: response.data,
+    });
+  } catch (err) {
+    console.log(`error in fetch favorites`, err);
   }
 }
 
